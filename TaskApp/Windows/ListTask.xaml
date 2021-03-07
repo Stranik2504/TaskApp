@@ -1,0 +1,110 @@
+﻿<Window x:Class="TaskApp.Windows.ListTask"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TaskApp.Windows"
+        mc:Ignorable="d"
+        Title="ListTask" Height="700" Width="500" Background="#C0CEE2">
+    <Grid>
+        <DockPanel>
+            <!--Место для вбивания новых названий скриптов-->
+            <TextBox x:Name="Tasks" DockPanel.Dock="Top" Margin="20 15 20 0" Height="35" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" FontFamily="Arial" FontSize="16" KeyDown="Tasks_KeyDown">
+                <TextBox.Style>
+                    <Style TargetType="{x:Type TextBox}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type TextBox}">
+                                    <Border x:Name="border" CornerRadius="15" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                                        <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" Value="#C9DFFF"/>
+                            </Trigger>
+
+                            <Trigger Property="IsMouseOver" Value="false">
+                                <Setter Property="Background" Value="#A2BDE4"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+                <!--Список, появляющийся при нажатии правой кнопки мыши-->
+                <TextBox.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Отчистить" Click="MenuItem_Click_Clear"/>
+                        <MenuItem Header="Вставить" Click="MenuItem_Click_Add"/>
+                        <MenuItem Header="Копировать" Click="MenuItem_Click_Copy"/>
+                    </ContextMenu>
+                </TextBox.ContextMenu>
+            </TextBox>
+
+            <!--Место хранения всех скриптов-->
+            <StackPanel Margin="0 15 0 0" x:Name="Tasking"/>
+        </DockPanel>
+
+        <!--Пример скрипта(используется как объект клонирования)-->
+        <Grid x:Name="Grid_Task_0" Margin="10 10 10 0" Visibility="Collapsed" Height="40">
+            <Button x:Name="Button_Task_0" Click="Open_Task_MouseDown" FontFamily="Arial" FontSize="16">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Border CornerRadius="20" Background="{TemplateBinding Background}"/>
+                            <Label Margin="10 5 0 5" Content="{TemplateBinding Content}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16" FontFamily="Arial"></Label>
+                        </Grid>
+                    </ControlTemplate>
+                </Button.Template>
+
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" Value="#C0D7F9"/>
+                            </Trigger>
+
+                            <Trigger Property="IsMouseOver" Value="false">
+                                <Setter Property="Background" Value="#A2BDE4"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Ellipse x:Name="Ellipse_Task_0" Width="30" Height="30" HorizontalAlignment="Right" Margin="0 0 10 0" MouseDown="Delete_Task_MouseDown">
+                <Ellipse.Style>
+                    <Style TargetType="{x:Type Ellipse}">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Fill" Value="#FFBEBE"/>
+                            </Trigger>
+
+                            <Trigger Property="IsMouseOver" Value="false">
+                                <Setter Property="Fill" Value="#F47B7B"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Ellipse.Style>
+            </Ellipse>
+            <!--<Rectangle x:Name="Rectangle_Task_1" RadiusX="20" RadiusY="20" Fill="#A2BDE4" MouseEnter="Rectangle_Script_MouseEnter" MouseLeave="Rectangle_Script_MouseLeave" MouseDown="Rectangle_Script_MouseDown"/>
+            <TextBlock x:Name="TextBlock_Task_1" TextAlignment="Left" Text="Test" VerticalAlignment="Center" Margin="10 0 0 0" HorizontalAlignment="Left" FontFamily="Arial" FontSize="16" MouseEnter="TextBlock_Script_MouseEnter" MouseLeave="TextBlock_Script_MouseLeave" MouseDown="TextBlock_Script_MouseDown"/>
+            <Ellipse x:Name="Ellipse_Task_0" Width="30" Height="30" HorizontalAlignment="Right" Margin="0 0 10 0" MouseDown="Delete_Task_MouseDown">
+                <Ellipse.Style>
+                    <Style TargetType="{x:Type Ellipse}">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Fill" Value="#FFBEBE"/>
+                            </Trigger>
+
+                            <Trigger Property="IsMouseOver" Value="false">
+                                <Setter Property="Fill" Value="#F47B7B"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Ellipse.Style>
+            </Ellipse>-->
+        </Grid>
+    </Grid>
+</Window>
